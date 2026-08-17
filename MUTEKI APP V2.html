@@ -1,0 +1,1469 @@
+MUTEKI APP/
+├── index.html
+├── vendre.html
+├── style.css
+├── app.js
+<source>
+public
+├── manifest.json
+└── icon.svg
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Muteki</title>
+
+  <meta name="theme-color" content="#009E60">
+  <meta name="description" content="Achetez et vendez les produits des jeunes entrepreneurs du Congo.">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+
+<header class="topbar">
+
+  <div class="logo">
+    Muteki
+    <small>Jeunes</small>
+  </div>
+
+  <a href="vendre.html" class="sell-btn">
+    + Vendre
+  </a>
+
+</header>
+
+
+<main>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <span class="badge">🇨🇩 100% Congolais</span>
+
+      <h1>
+        Soutenons les jeunes
+        <strong>entrepreneurs du Congo</strong>
+      </h1>
+
+      <p>
+        Achetez local. Vendez local.
+        Grandissons ensemble.
+      </p>
+
+      <div class="search-box">
+        <span>🔎</span>
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Que recherchez-vous ?"
+        >
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CATEGORIES -->
+
+  <section class="section">
+
+    <div class="section-title">
+      <h2>Catégories</h2>
+      <span>Voir tout</span>
+    </div>
+
+    <div class="categories">
+
+      <button class="category active" data-category="all">
+        <div>🛍️</div>
+        <span>Tout</span>
+      </button>
+
+      <button class="category" data-category="Mode">
+        <div>👗</div>
+        <span>Mode</span>
+      </button>
+
+      <button class="category" data-category="Nourriture">
+        <div>🍲</div>
+        <span>Nourriture</span>
+      </button>
+
+      <button class="category" data-category="Art">
+        <div>🎨</div>
+        <span>Art</span>
+      </button>
+
+      <button class="category" data-category="Tech">
+        <div>💻</div>
+        <span>Tech</span>
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- PRODUITS -->
+
+  <section class="section products-section">
+
+    <div class="section-title">
+      <h2>Produits populaires</h2>
+      <span id="productCount"></span>
+    </div>
+
+    <div id="products" class="products"></div>
+
+  </section>
+
+
+  <!-- CTA VENDEUR -->
+
+  <section class="seller-card">
+
+    <div>
+
+      <span class="seller-icon">🚀</span>
+
+      <h2>
+        Tu es entrepreneur ?
+      </h2>
+
+      <p>
+        Présente ton produit à des milliers
+        de clients congolais.
+      </p>
+
+      <a href="vendre.html">
+        Commencer à vendre →
+      </a>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- BOTTOM NAVIGATION -->
+
+<nav class="bottom-nav">
+
+  <a href="index.html" class="nav-item active">
+    <span>🏠</span>
+    <small>Accueil</small>
+  </a>
+
+  <a href="#products" class="nav-item">
+    <span>🛍️</span>
+    <small>Boutique</small>
+  </a>
+
+  <a href="vendre.html" class="nav-item sell-nav">
+    <span>＋</span>
+    <small>Vendre</small>
+  </a>
+
+  <a href="#" class="nav-item">
+    <span>❤️</span>
+    <small>Favoris</small>
+  </a>
+
+  <a href="#" class="nav-item">
+    <span>👤</span>
+    <small>Compte</small>
+  </a>
+
+</nav>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
+:root {
+  --green: #009e60;
+  --yellow: #ffce00;
+  --red: #ce1126;
+  --black: #0a0a0a;
+  --white: #ffffff;
+  --bg: #f6f7f8;
+  --text: #171717;
+  --muted: #777;
+  --radius: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  padding-bottom: 80px;
+}
+
+
+/* TOPBAR */
+
+.topbar {
+  height: 68px;
+  padding: 0 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: var(--black);
+  color: white;
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 18px;
+}
+
+.logo span {
+  color: var(--yellow);
+}
+
+.logo small {
+  display: block;
+  color: #ddd;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.sell-btn {
+  background: var(--green);
+  color: white;
+  text-decoration: none;
+
+  padding: 10px 15px;
+  border-radius: 12px;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+
+/* HERO */
+
+.hero {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,158,96,.96),
+      rgba(206,17,38,.94)
+    );
+
+  color: white;
+
+  padding: 48px 20px 55px;
+
+  border-radius: 0 0 28px 28px;
+}
+
+.hero-content {
+  max-width: 700px;
+  margin: auto;
+}
+
+.badge {
+  display: inline-block;
+
+  background: rgba(255,255,255,.16);
+
+  padding: 8px 12px;
+
+  border-radius: 30px;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.hero h1 {
+  font-size: 32px;
+  line-height: 1.12;
+  margin: 18px 0 12px;
+}
+
+.hero h1 strong {
+  display: block;
+  color: var(--yellow);
+}
+
+.hero p {
+  margin: 0;
+  font-size: 15px;
+  opacity: .92;
+  line-height: 1.6;
+}
+
+
+/* SEARCH */
+
+.search-box {
+  margin-top: 24px;
+
+  display: flex;
+  align-items: center;
+
+  background: white;
+
+  border-radius: 50px;
+
+  padding: 5px 16px;
+
+  box-shadow: 0 8px 25px rgba(0,0,0,.18);
+}
+
+.search-box span {
+  font-size: 18px;
+}
+
+.search-box input {
+  width: 100%;
+
+  border: 0;
+  outline: 0;
+
+  padding: 13px;
+
+  font-size: 15px;
+}
+
+
+/* SECTIONS */
+
+.section {
+  padding: 25px 18px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 15px;
+}
+
+.section-title h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.section-title span {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: bold;
+}
+
+
+/* CATEGORIES */
+
+.categories {
+  display: flex;
+
+  gap: 10px;
+
+  overflow-x: auto;
+
+  padding-bottom: 5px;
+
+  scrollbar-width: none;
+}
+
+.categories::-webkit-scrollbar {
+  display: none;
+}
+
+.category {
+  flex: 0 0 78px;
+
+  border: 0;
+
+  background: white;
+
+  border-radius: 15px;
+
+  padding: 12px 5px;
+
+  box-shadow: 0 3px 12px rgba(0,0,0,.06);
+
+  cursor: pointer;
+}
+
+.category div {
+  font-size: 25px;
+  margin-bottom: 7px;
+}
+
+.category span {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.category.active {
+  background: var(--green);
+  color: white;
+}
+
+
+/* PRODUCTS */
+
+.products {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 14px;
+}
+
+.product-card {
+  background: white;
+
+  border-radius: var(--radius);
+
+  overflow: hidden;
+
+  box-shadow: 0 4px 15px rgba(0,0,0,.07);
+}
+
+.product-image {
+  position: relative;
+
+  height: 155px;
+
+  background: #eee;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.favorite {
+  position: absolute;
+
+  top: 9px;
+  right: 9px;
+
+  width: 32px;
+  height: 32px;
+
+  border: 0;
+
+  border-radius: 50%;
+
+  background: white;
+
+  cursor: pointer;
+}
+
+.product-info {
+  padding: 12px;
+}
+
+.product-info h3 {
+  margin: 0 0 5px;
+
+  font-size: 14px;
+}
+
+.seller {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 10px;
+
+  line-height: 1.5;
+}
+
+.price {
+  display: block;
+
+  color: var(--red);
+
+  font-size: 18px;
+
+  font-weight: 800;
+
+  margin-top: 8px;
+}
+
+.order-btn {
+  width: 100%;
+
+  margin-top: 9px;
+
+  border: 0;
+
+  background: var(--yellow);
+
+  padding: 10px;
+
+  border-radius: 10px;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.pay-btn {
+  width: 100%;
+
+  margin-top: 7px;
+
+  border: 1px solid #ddd;
+
+  background: white;
+
+  padding: 9px;
+
+  border-radius: 10px;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+/* SELLER CTA */
+
+.seller-card {
+  margin: 15px 18px 30px;
+
+  padding: 25px;
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--black),
+      #222
+    );
+
+  color: white;
+}
+
+.seller-icon {
+  font-size: 30px;
+}
+
+.seller-card h2 {
+  margin: 10px 0;
+
+  font-size: 22px;
+}
+
+.seller-card p {
+  color: #ccc;
+
+  line-height: 1.5;
+
+  font-size: 13px;
+}
+
+.seller-card a {
+  display: inline-block;
+
+  color: var(--yellow);
+
+  font-weight: bold;
+
+  text-decoration: none;
+
+  margin-top: 5px;
+}
+
+
+/* BOTTOM NAV */
+
+.bottom-nav {
+  position: fixed;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 68px;
+
+  background: white;
+
+  border-top: 1px solid #eee;
+
+  display: flex;
+
+  justify-content: space-around;
+
+  align-items: center;
+
+  z-index: 200;
+
+  box-shadow: 0 -4px 15px rgba(0,0,0,.06);
+}
+
+.nav-item {
+  text-decoration: none;
+
+  color: #888;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 3px;
+
+  font-size: 18px;
+}
+
+.nav-item small {
+  font-size: 9px;
+}
+
+.nav-item.active {
+  color: var(--green);
+}
+
+.sell-nav span {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: var(--green);
+
+  color: white;
+
+  border-radius: 50%;
+
+  font-size: 25px;
+
+  margin-top: -22px;
+
+  border: 5px solid var(--bg);
+}
+
+
+/* EMPTY */
+
+.empty {
+  grid-column: 1 / -1;
+
+  text-align: center;
+
+  padding: 50px 20px;
+
+  color: var(--muted);
+}
+
+
+/* DESKTOP */
+
+@media (min-width: 768px) {
+
+  body {
+    padding-bottom: 0;
+  }
+
+  .topbar {
+    padding: 0 8%;
+  }
+
+  .hero {
+    padding: 80px 8%;
+  }
+
+  .hero h1 {
+    font-size: 48px;
+  }
+
+  .section {
+    max-width: 1100px;
+    margin: auto;
+  }
+
+  .products {
+    grid-template-columns:
+      repeat(3, 1fr);
+  }
+
+  .product-image {
+    height: 210px;
+  }
+
+  .bottom-nav {
+    display: none;
+  }
+
+  .seller-card {
+    max-width: 1064px;
+    margin: 30px auto;
+  }
+}
+const WHATSAPP_NUMBER = "2438XXXXXXXX";
+
+const products = [
+
+  {
+    name: "Sac en Ankara",
+    seller: "REBECCA NSOMBO",
+    age: 22,
+    city: "Kinshasa",
+    price: 25,
+    category: "Mode",
+    image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=700&q=80"
+  },
+
+  {
+    name: "Gâteau d'anniversaire",
+    seller: "JONATHAN NTUMBA",
+    age: 19,
+    city: "Lubumbashi",
+    price: 15,
+    category: "Nourriture",
+    image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=700&q=80"
+  },
+
+  {
+    name: "Création Logo + Affiche",
+    seller: "FANNY KABONGO",
+    age: 24,
+    city: "Goma",
+    price: 30,
+    category: "Tech",
+    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=700&q=80"
+  },
+
+  {
+    name: "Tableau artistique",
+    seller: "JOSIAS MWAMBA",
+    age: 25,
+    city: "LIKASI",
+    price: 14,
+    category: "Art",
+    image: "https://images.unsplash.com/photo-1577083552431-6e5fd01988a5?auto=format&fit=crop&w=700&q=80"
+  }
+
+];
+
+
+const productsContainer =
+  document.getElementById("products");
+
+const searchInput =
+  document.getElementById("searchInput");
+
+const productCount =
+  document.getElementById("productCount");
+
+
+function displayProducts(list) {
+
+  productsContainer.innerHTML = "";
+
+  productCount.textContent =
+    ${list.length} produit${list.length > 1 ? "s" : ""};
+
+
+  if (list.length === 0) {
+
+    productsContainer.innerHTML = `
+      <div class="empty">
+        <div style="font-size:40px;">🔎</div>
+        <h3>Aucun produit trouvé</h3>
+        <p>Essaie une autre recherche.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  list.forEach(product => {
+
+    const card =
+      document.createElement("article");
+
+    card.className = "product-card";
+
+    card.innerHTML = `
+
+      <div class="product-image">
+
+        <img
+          src="${product.image}"
+          alt="${product.name}"
+          loading="lazy"
+        >
+
+        <button
+          class="favorite"
+          onclick="favoriteProduct(this)"
+        >
+          ♡
+        </button>
+
+      </div>
+
+
+      <div class="product-info">
+
+        <h3>${product.name}</h3>
+
+        <p class="seller">
+          👤 ${product.seller}, ${product.age} ans<br>
+          📍 ${product.city}
+        </p>
+
+        <span class="price">
+          ${product.price}$
+        </span>
+
+        <button
+    card.innerHTML='
+    card.innerHTML = `
+
+    <div class="product-image">
+
+        <img
+            src="${product.image}"
+            alt="${product.name}"
+            loading="lazy"
+        >
+
+        <button
+            class="favorite"
+            onclick="favoriteProduct(this)"
+        >
+            ♡
+        </button>
+
+    </div>
+
+
+    <div class="product-info">
+
+        <h3>${product.name}</h3>
+
+        <p class="seller">
+            👤 ${product.seller}, ${product.age} ans<br>
+            📍 ${product.city}
+        </p>
+
+        <span class="price">
+            ${product.price}$
+        </span>
+
+
+        <button
+            class="order-btn"
+            onclick='commanderWhatsApp(
+                ${JSON.stringify(product.name)},
+                ${JSON.stringify(product.seller)},
+                ${product.price}
+            )'
+        >
+            💬 Commander
+        </button>
+
+
+        <button
+            class="pay-btn"
+            onclick="mobileMoney()"
+        >
+            💳 Mobile Money
+        </button>
+
+    </div>
+
+`;'
+          )'
+        >
+          💬 Commander
+        </button>
+
+        <button
+          class="pay-btn"
+          onclick="mobileMoney()"
+        >
+          💳 Mobile Money
+        </button>
+
+      </div>
+    `;
+
+    productsContainer.appendChild(card);
+
+  });
+
+}
+
+
+function commanderWhatsApp(
+  produit,
+  vendeur,
+  prix
+) {
+
+  if (
+    WHATSAPP_NUMBER === "2438XXXXXXXX"
+  ) {
+
+    alert(
+      "Ajoute d'abord ton numéro WhatsApp dans app.js."
+    );
+
+    return;
+  }
+
+
+  const message =
+`Bonjour 👋
+
+Je veux commander :
+
+🛍️ Produit : ${produit}
+💰 Prix :CDF{prix}CDF
+👤 Vendeur : ${vendeur}
+
+Je viens de Muteki 🇨🇩`;
+
+  const url =
+    https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)};
+
+  window.open(url, "_blank");
+
+}
+
+
+function mobileMoney() {
+
+  alert(
+    "💳 Paiement Mobile Money\n\n" +
+    "Cette fonctionnalité sera bientôt disponible.\n\n" +
+    "Pour le moment : paiement à la livraison."
+  );
+
+}
+
+
+function favoriteProduct(button) {
+
+  if (button.textContent === "♡") {
+
+    button.textContent = "♥️";
+
+  } else {
+
+    button.textContent = "♡";
+
+  }
+
+}
+
+
+/* RECHERCHE */
+
+searchInput.addEventListener(
+  "input",
+  function () {
+
+    const value =
+      this.value.toLowerCase().trim();
+
+    const filtered =
+      products.filter(product =>
+
+        product.name
+          .toLowerCase()
+          .includes(value)
+
+        ||
+
+        product.city
+          .toLowerCase()
+          .includes(value)
+
+        ||
+
+        product.category
+          .toLowerCase()
+          .includes(value)
+
+        ||
+
+        product.seller
+          .toLowerCase()
+          .includes(value)
+
+      );
+
+    displayProducts(filtered);
+
+  }
+);
+
+
+/* CATEGORIES */
+
+document
+  .querySelectorAll(".category")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        document
+          .querySelectorAll(".category")
+          .forEach(btn =>
+            btn.classList.remove("active")
+          );
+
+        button.classList.add("active");
+
+        const category =
+          button.dataset.category;
+
+        if (category === "all") {
+
+          displayProducts(products);
+
+        } else {
+
+          displayProducts(
+            products.filter(
+              product =>
+                product.category === category
+            )
+          );
+
+        }
+
+      }
+    );
+
+  });
+
+
+/* START */
+
+displayProducts(products);
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Vendre - Muteki</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<header class="topbar">
+
+  <div class="logo">
+    Muteki
+    <small>Jeunes</small>
+  </div>
+
+  <a href="index.html" class="sell-btn">
+    ← Accueil
+  </a>
+
+</header>
+
+
+<main>
+
+<section class="seller-card">
+
+  <span class="seller-icon">🚀</span>
+
+  <h2>
+    Deviens vendeur
+  </h2>
+
+  <p>
+    Présente ton produit et développe
+    ton activité avec Muteki.
+  </p>
+
+</section>
+
+
+<section class="section">
+
+  <form
+    id="sellerForm"
+    class="seller-form"
+  >
+
+    <label>
+      Nom du produit
+      <input
+        type="text"
+        id="productName"
+        placeholder="Ex: Sac en Ankara"
+        required
+      >
+    </label>
+
+
+    <label>
+    FRANC CONGOLAIS 
+      <input
+        type="number"
+        id="productPrice"
+        placeholder="25"
+        min="1"
+        required
+      >
+    </label>
+
+
+    <label>
+      Catégorie
+
+      <select id="productCategory">
+
+        <option>Mode</option>
+        <option>Nourriture</option>
+        <option>Art</option>
+        <option>Tech</option>
+
+      </select>
+
+    </label>
+
+
+    <label>
+      Ta ville
+
+      <input
+        type="text"
+        id="productCity"
+        placeholder="Kinshasa"
+        required
+      >
+
+    </label>
+
+
+    <label>
+      Ton nom
+
+      <input
+        type="text"
+        id="sellerName"
+        placeholder="Ton nom"
+        required
+      >
+
+    </label>
+
+
+    <label>
+      Ton WhatsApp
+
+      <input
+        type="tel"
+        id="sellerWhatsapp"
+        placeholder="+243..."
+        required
+      >
+
+    </label>
+
+
+    <label>
+      Photo du produit
+
+      <input
+        type="file"
+        id="productImage"
+        accept="image/*"
+      >
+
+    </label>
+
+
+    <label>
+      Description
+
+      <textarea
+        id="productDescription"
+        rows="5"
+        placeholder="Décris ton produit..."
+      ></textarea>
+
+    </label>
+
+
+    <button
+      type="submit"
+      class="submit-btn"
+    >
+      🚀 Envoyer mon produit
+    </button>
+
+  </form>
+
+</section>
+
+</main>
+
+
+<script>
+
+const form =
+  document.getElementById("sellerForm");
+
+
+form.addEventListener(
+  "submit",
+  function(event) {
+
+    event.preventDefault();
+
+    const product =
+      document.getElementById("productName").value;
+
+    const price =
+      document.getElementById("productPrice").value;
+
+    const category =
+      document.getElementById("productCategory").value;
+
+    const city =
+      document.getElementById("productCity").value;
+
+    const seller =
+      document.getElementById("sellerName").value;
+
+    const whatsapp =
+      document.getElementById("sellerWhatsapp").value;
+
+    const description =
+      document.getElementById("productDescription").value;
+
+
+    const message =
+`🇨🇩 NOUVEAU PRODUIT - MADE IN CONGO JEUNES
+
+🛍️ Produit : ${product}
+💰 Prix : ${price} CDF
+📂 Catégorie : ${category}
+📍 Ville : ${city}
+
+👤 Vendeur : ${seller}
+📱 WhatsApp : ${whatsapp}
+
+📝 Description :
+${description}`;
+
+
+    const adminNumber =
+      "+27 69 80 25 139";
+
+
+    if (adminNumber === "+27 69 80 25 139") {
+
+      alert(
+        "Ajoute le numéro WhatsApp administrateur dans vendre.html."
+      );
+
+      return;
+    }
+
+
+    window.open(
+      `https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`,
+      "_blank"
+    );
+
+  }
+);
+
+</script>
+
+
+<style>
+
+.seller-form {
+
+  background: white;
+
+  padding: 20px;
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 5px 20px rgba(0,0,0,.06);
+
+}
+
+.seller-form label {
+
+  display: block;
+
+  margin-bottom: 17px;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+}
+
+.seller-form input,
+.seller-form select,
+.seller-form textarea {
+
+  width: 100%;
+
+  margin-top: 7px;
+
+  padding: 14px;
+
+  border: 1px solid #ddd;
+
+  border-radius: 12px;
+
+  outline: none;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+}
+
+.seller-form input:focus,
+.seller-form select:focus,
+.seller-form textarea:focus {
+
+  border-color: var(--green);
+
+}
+
+.submit-btn {
+
+  width: 100%;
+
+  border: 0;
+
+  background: var(--green);
+
+  color: white;
+
+  padding: 15px;
+
+  border-radius: 12px;
+
+  font-size: 15px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+}
+
+</style>
+
+</body>
+</html>
+{
+  "name": "Muteki",
+  "short_name": "Muteki",
+  "description": "Marketplace des jeunes entrepreneurs du Congo",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f6f7f8",
+  "theme_color": "#009E60",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+
+  <rect
+    width="512"
+    height="512"
+    rx="110"
+    fill="#009E60"
+  />
+
+  <circle
+    cx="256"
+    cy="256"
+    r="170"
+    fill="#FFCE00"
+  />
+
+  <text
+    x="256"
+    y="285"
+    text-anchor="middle"
+    font-family="Arial"
+    font-size="100"
+    font-weight="900"
+    fill="#0A0A0A"
+  >
+    MIC
+  </text>
+
+</svg>
+dir 
+npm install
